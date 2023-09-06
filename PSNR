@@ -1,0 +1,26 @@
+Code for PSNR
+import cv2
+import numpy as np
+def calculate_psnr(image1, image2):
+# Load the images
+img1 = cv2.imread(image1)
+img2 = cv2.imread(image2)
+# Convert the images to grayscale
+gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+gray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+# Calculate the MSE (Mean Squared Error)
+mse = np.mean((gray1 - gray2) ** 2)
+# If the MSE is 0, return infinity as PSNR
+if mse == 0:
+return float('inf')
+# Calculate the maximum pixel value
+max_pixel = 255.0
+# Calculate the PSNR using the formula: PSNR = 20 * log10(MAXp) - 10 * log10(MSE)
+psnr = 20 * np.log10(max_pixel) - 10 * np.log10(mse)
+return psnr
+# Provide the paths to the two images for PSNR calculation
+image1_path = "image1path"
+image2_path = "image2path"
+psnr_value = calculate_psnr(image1_path, image2_path)
+# Print the PSNR value
+print(f"PSNR: {psnr_value} dB")
