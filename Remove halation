@@ -1,0 +1,21 @@
+import cv2
+import numpy as np
+import tkinter as tk
+from tkinter import filedialog
+from PIL import ImageTk, Image
+def find_critical_gray_scale_value(image_path):
+# Load the input image
+img = Image.open(image_path)
+# Convert the image to grayscale
+img_gray = img.convert('L')
+# Convert the grayscale image to a numpy array
+img_array = np.array(img_gray)
+# Compute the histogram of the image
+hist, bins = np.histogram(img_array, bins=256, range=[0, 256])
+# Compute the cumulative sum of the histogram
+cum_sum = np.cumsum(hist)
+# Compute the normalized cumulative sum of the histogram
+norm_cum_sum = cum_sum / float(cum_sum.max())
+# Find the index of the first value in the normalized cumulative sum that is greater than
+0.99
+x = np.argmax(norm_cum_sum > 0.99
